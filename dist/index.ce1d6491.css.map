@@ -1,0 +1,1 @@
+{"mappings":"AAAA;;;;AAIA","sources":["src/index.scss"],"sourcesContent":[".my-flix {\n  color: steelblue;\n}\n\nimg {\n  width: 300px;\n}"],"names":[],"version":3,"file":"index.ce1d6491.css.map","sourceRoot":"/__parcel_source_root/"}
