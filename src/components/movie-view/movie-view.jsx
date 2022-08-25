@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Form, Button, Card, CardGroup, Container, Col, Row } from 'react-bootstrap';
+
+import './movie-view.scss';
 
 export class MovieView extends React.Component {
-
   keypressCallback(event) {
      console.log(event.key);
    }
