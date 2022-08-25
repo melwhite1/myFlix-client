@@ -1,0 +1,1 @@
+{"mappings":";;ACEA;;;;AAIA","sources":["src/components/registration-view/registration-view.scss","src/index.scss"],"sourcesContent":[null,"$color: steelblue;\n\n.my-flix {\n  color: $color;\n}\n\nimg {\n  width: 300px;\n}"],"names":[],"version":3,"file":"index.3bb28fe2.css.map","sourceRoot":"/__parcel_source_root/"}
