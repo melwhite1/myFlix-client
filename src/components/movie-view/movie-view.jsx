@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export class MovieView extends React.Component {
 
@@ -86,7 +87,7 @@ export class MovieView extends React.Component {
   }
 }
 
-MovieView.propTypes = {
+MovieView.PropTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string,
     Description: PropTypes.string.isRequired,

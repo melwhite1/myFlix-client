@@ -6,11 +6,8 @@ import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
-<<<<<<< Updated upstream
-=======
 
 import './main-view.scss';
->>>>>>> Stashed changes
 
 export class MainView extends React.Component {
   constructor() {
@@ -40,11 +37,30 @@ export class MainView extends React.Component {
     });
   }
 
-  onLoggedIn(user) {
-  this.setState({
-    user
-  });
-}
+  onLoggedIn(authData) {
+    console.log(authData);
+    this.setState({
+      user: authData.user.Username
+    });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
+  }
+
+  getMovies(token) {
+    axios.get('https://melsflix.herokuapp.com//movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      this.setState({
+        movies: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   render() {
     const { movies, selectedMovie, user } = this.state;

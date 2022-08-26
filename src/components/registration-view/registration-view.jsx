@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {Form, Button, Card, CardGroup, Container, Col, Row, Navbar, Nav } from 'react-bootstrap';
@@ -23,7 +21,7 @@ export function RegistrationView(props) {
       <Container fluid className="registerContainer text-center my-3 mx-12">
         <Navbar bg="light" expand="lg">
           <Container fluid>
-            <Navbar.Brand href="#home">AppforMovies</Navbar.Brand>
+            <Navbar.Brand href="#home">Home</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
@@ -79,7 +77,7 @@ export function RegistrationView(props) {
                   />
                 </Form.Group>
 
-                <Button  variant='primary' type='submit'      onClick={handleSubmit}>Submit
+                <Button  variant='primary' type='submit'onClick={handleSubmit}>Submit
                 </Button>
               </Form>
             </Card>
@@ -93,4 +91,3 @@ export function RegistrationView(props) {
 RegistrationView.propTypes = {
     onRegistration: PropTypes.func.isRequired,
 };
->>>>>>> Stashed changes
