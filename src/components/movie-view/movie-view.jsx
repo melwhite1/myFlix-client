@@ -1,104 +1,50 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import {Card, Button} from 'react-bootstrap';
+
+import { Link } from "react-router-dom";
+
+import "./movie-view.scss";
 
 export class MovieView extends React.Component {
-
-  keypressCallback(event) {
-     console.log(event.key);
-   }
-
-   componentDidMount() {
-     document.addEventListener('keypress', this.keypressCallback);
-   }
-
-   componentWillUnmount() {
-     document.removeEventListener('keypress', this.keypressCallback);
-   }
-
   render() {
     const { movie, onBackClick } = this.props;
 
     return (
-      <Container fluid className="movieViewContainer">
-        <Row>
-          <Col>
-            <div className="movie-view">
-              <img src={movie.ImagePath} />
-            </div>
-          </Col>
-       </Row>
-       <Row>
-         <Col>
-          <div className="movie-title">
-            <span className="title">Title: </span>
-            <span className="value">{movie.Title}</span>
-          </div>
-        </Col>
-       </Row>
-       <Row>
-         <Col>
-          <div className="movie-description">
-            <span className="description">Description: </span>
-            <span className="value">{movie.Description}</span>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <div className="movie-genre">
-            <span className="genre">Genre: </span>
-            <span className="value">{movie.Genre.Name}</span>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <div className="genre-description">
-            <span className="genre">Description: </span>
-            <span className="value">{movie.Genre.Description}</span>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <div className="movie-director">
-            <span className="director">Director: </span>
-            <span className="value">{movie.Director.Name}</span>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <div className="director-bio">
-            <span className="director">Bio: </span>
-            <span className="value">{movie.Director.Bio}</span>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Button onClick={() => { onBackClick(null); }}>Back</Button>
-          <Button className="ml-2 my-2">Add to Favorites</Button>
-            <Button className="ml-2">Remove from Favorites</Button>
-        </Col>
-      </Row>
-    </Container>
+      <Card className="movie-view">
+        <Card.Header>
+          <Card.Img variant="top" src={movie.ImagePath} />
+        </Card.Header>
+        <Card.Body className="movie-view-title">
+          <h1>{movie.Title}</h1>
+        </Card.Body>
+        <Card.Body>
+          <h4>Genre</h4>
+          <Link to={`/genres/${movie.Genre.Name}`}>
+            <h4 className="genre-link link">{movie.Genre.Name}</h4>
+          </Link>
+        </Card.Body>
+        <Card.Body>
+          <h4>Director</h4>
+          <Link to={`/directors/${movie.Director.Name}`}>
+            <h4 className="director-link link">{movie.Director.Name}</h4>
+          </Link>
+        </Card.Body>
+        <Card.Body>
+          <h4>Description:</h4>
+          {movie.Description}
+        </Card.Body>
+
+        <Card.Footer>
+          <Button
+            className="movie-view-button"
+            onClick={() => {
+              onBackClick();
+            }}
+          >
+            Back
+          </Button>
+        </Card.Footer>
+      </Card>
     );
   }
 }
-
-MovieView.PropTypes = {
-  movie: PropTypes.shape({
-    Title: PropTypes.string,
-    Description: PropTypes.string.isRequired,
-    Genre: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-      Description: PropTypes.string.isRequired,
-    }),
-    Director: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-      Bio: PropTypes.string.isRequired,
-    }),
-    ImagePath: PropTypes.string,
-  }).isRequired,
-};

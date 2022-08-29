@@ -4,18 +4,73 @@ import {Form, Button, Card, CardGroup, Container, Col, Row, Navbar, Nav } from '
 
 import './registration-view.scss';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 export function RegistrationView(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ birthday, setBirthday ] = useState('');
+    const [ values, setValues ] = useState({
+      usernameErr: '',
+      passwordErr: '',
+      emailErr: '',
+      birthdayErr: '',
+    });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(username, password, email, birthday);
-        props.onRegistration(username);
-    };
+    const validate = () => {
+      let isReq = true;
+      if(!username){
+       setValues({...values, usernameErr: 'Username Required'});
+       isReq = false;
+      }else if {
+       setValues({...values, usernameErr: 'Username must be 3 characters long' });
+       isReq = false;
+      }
+      if(!password){
+       setValues({...values, passwordErr:'Password Required'});
+       isReq = false;
+      }else if(password.length < 6){
+       setValues({...values, passwordErr: 'Password must be 6 characters long'});
+       isReq = false;
+      }
+      if(!email){
+       setValues({...values, emailErr:'Email Required'});
+       isReq = false;
+     }else if(email.indexOf('@' === -1)){
+       setValues({...values, emailErr: 'Email is invalid'});
+       isReq = false;
+      }
+      if(!birthday){
+       setValues({...values, birthdayErr:'Email Required'});
+       isReq = false;
+     }
+
+      return isReq;
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const isReq = validate();
+    if(isReq) {
+      axios.post('https://melsflix.herokuapp.com/login', {
+        Username: username,
+        Password: password,
+        Email: email,
+        Birthday: birthday
+      })
+      .then(response => {
+        const data = response.data;
+        console.log(data);
+        alert('Registration succesful, continue to login!');
+        window.open('/', '_self');
+      })
+      .catch(response => {
+        console.error(response);
+        alert('unable to register');
+      });
+    }
+  };
 
     return (
       <Container fluid className="registerContainer text-center my-3 mx-12">
@@ -42,9 +97,8 @@ export function RegistrationView(props) {
                     type='text'
                     value={username}
                     onChange={e => setUsername(e.target.value)}
-                    required
-                    placeholder="Enter a username"
                   />
+                    {values.usernameErr && <p>{values.usernameErr}</p>}
                 </Form.Group>
 
                 <Form.Group>
@@ -53,9 +107,8 @@ export function RegistrationView(props) {
                     type='password'
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    required
-                    minLength="8"
                   />
+                    {values.passwordErr && <p>{values.passwordErr}</p>}
                 </Form.Group>
 
                 <Form.Group>
@@ -64,8 +117,8 @@ export function RegistrationView(props) {
                     type='email'
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    required
                   />
+                    {values.emailErr && <p>{values.emailErr}</p>}
                 </Form.Group>
 
                 <Form.Group>
@@ -75,6 +128,7 @@ export function RegistrationView(props) {
                     value={birthday}
                     onChange={e => setBirthday(e.target.value)}
                   />
+                    {values.birthdayErr && <p>{values.birthdayErr}</p>}
                 </Form.Group>
 
                 <Button  variant='primary' type='submit'onClick={handleSubmit}>Submit
@@ -89,5 +143,10 @@ export function RegistrationView(props) {
 }
 
 RegistrationView.propTypes = {
-    onRegistration: PropTypes.func.isRequired,
+  register: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
+    Password: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    Birthday: PropTypes.string.isRequired,
+  }),
 };
