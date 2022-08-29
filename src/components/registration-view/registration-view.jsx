@@ -23,7 +23,7 @@ export function RegistrationView(props) {
       if(!username){
        setValues({...values, usernameErr: 'Username Required'});
        isReq = false;
-      }else if {
+     }else if (username.length < 2){
        setValues({...values, usernameErr: 'Username must be 2 characters long' });
        isReq = false;
       }
