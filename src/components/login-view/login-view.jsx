@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 import './login-view.scss';
 
-export function LoginView(props) {
+function LoginView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [ usernameErr, setUsernameErr ] = useState('');
@@ -115,5 +115,7 @@ LoginView.propTypes = {
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
   }),
-  onLoggedIn: PropTypes.func.isRequired,
+  onLoggedIn: PropTypes.func.isRequired
 };
+
+export default LoginView;
