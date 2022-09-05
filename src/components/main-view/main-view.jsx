@@ -121,7 +121,7 @@ render() {
             <Col>
               <ProfileView
                 user={user}
-                movies={movies
+                movies={movies}
                 onBackClick={() => history.goBack()}
               />
             </Col>
