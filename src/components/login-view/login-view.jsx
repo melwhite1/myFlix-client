@@ -107,11 +107,11 @@ function LoginView(props) {
               </Card.Body>
             </Card>
           </Col>
-          <Col></Col>
-        </Row>
-      </Container>
-    );
-  }
+        </CardGroup>
+      </Row>
+    </Container>
+  );
+}
 
 let mapStateToProps = (state) => {
   return {
