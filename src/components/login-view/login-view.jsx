@@ -106,8 +106,8 @@ function LoginView(props) {
                 </Form>
               </Card.Body>
             </Card>
-          </Col>
-        </CardGroup>
+          </CardGroup>
+        </Col>
       </Row>
     </Container>
   );
