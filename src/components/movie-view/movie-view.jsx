@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Card, Button} from 'react-bootstrap';
+import axios from 'axios';
 
 import { Link } from "react-router-dom";
 
 import "./movie-view.scss";
 
-export class MovieView extends React.Component {
+class MovieView extends React.Component {
   render() {
     const { movie, onBackClick } = this.props;
 
@@ -48,3 +50,14 @@ export class MovieView extends React.Component {
     );
   }
 }
+
+MovieView.propTypes = {
+  movie: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    ImageURL: PropTypes.string.isRequired,
+  }).isRequired,
+  onBackClick: PropTypes.func.isRequired,
+};
+
+export default MovieView;

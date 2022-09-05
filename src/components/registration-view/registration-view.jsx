@@ -6,7 +6,7 @@ import './registration-view.scss';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
-export function RegistrationView(props) {
+function RegistrationView(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ email, setEmail ] = useState('');
@@ -150,3 +150,5 @@ RegistrationView.propTypes = {
     Birthday: PropTypes.string.isRequired,
   }),
 };
+
+export default RegistrationView;

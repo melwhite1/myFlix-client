@@ -2,9 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 
 import { Container, Col, Row, Navbar, Nav } from 'react-bootstrap';
 
@@ -25,18 +25,24 @@ class MainView extends React.Component {
     super();
     this.state = {
       user: null
-    };
+    }
   }
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      this.setState({
+      this.props.setUser({
         user: localStorage.getItem('user'),
       });
       this.getMovies(accessToken);
     }
   }
+
+  setSelectedMovie(newSelectedMovie) {
+  this.setState({
+    selectedMovie: newSelectedMovie,
+  });
+}
 
   getMovies(token) {
     axios.get('https://melsflix.herokuapp.com//movies', {
@@ -64,15 +70,16 @@ class MainView extends React.Component {
   onLoggedOut() {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
-  this.setState({
+  this.setState{
     user: null,
   });
   window.open("/", "_self");
 }
 
 render() {
-  let { movies } = this.props;
-  let { user } = this.state;
+  let { movies, user } = this.props;
+  let localUser = localStorage.getItem('user');
+
   return (
   <Router>
     <NavBar user={user} />
@@ -85,7 +92,6 @@ render() {
             return (
               <Col>
                 <LoginView
-                  movies={movies}
                   onLoggedIn={(user) => this.onLoggedIn(user)}
                 />
               </Col>
@@ -110,25 +116,25 @@ render() {
       <Route
         path={`/users/${user}`}
         render={({ history }) => {
-          if (!user) return <Redirect to="/" />;
+          if (!localUseruser) return <Redirect to="/" />;
           return (
             <Col>
               <ProfileView
                 user={user}
+                movies={movies
                 onBackClick={() => history.goBack()}
-                movies={movies}
               />
             </Col>
           );
         }}
       />
       <Route
-        path={`/user-update/${user}`}
-        render={({ match, history }) => {
+        path="/users-update/"
+        render={({ history }) => {
           if (!user) return <Redirect to="/" />;
           return (
             <Col>
-              <UserUpdate
+              <UserView
                 user={user}
                 onBackClick={() => history.goBack()}
               />
@@ -211,10 +217,10 @@ render() {
 }
 }
 
-let mapStateToProps = state => {
+let mapStateToProps = (state) => {
   return {
     movies: state.movies,
     user: state.user, };
 }
 
-export default connect(mapStateToProps, { setMovies } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUser } )(MainView);

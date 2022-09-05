@@ -1,11 +1,11 @@
-import React from "react";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import "./navbar.scss";
 
-export function NavBar() {
-  let user = localStorage.getItem("user");
+function NavBar() {
+  let user = localStorage.getItem('user');
 
   const handleLogOut = (e) => {
     e.preventDefault();
@@ -52,3 +52,5 @@ export function NavBar() {
     </Navbar>
   );
 }
+
+export default NavBar;

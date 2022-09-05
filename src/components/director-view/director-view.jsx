@@ -1,9 +1,9 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
+import PropTypes from 'prop-types';
 import { Card, Button, Container } from 'react-bootstrap';
 import "./director-view.scss";
 
-export class DirectorView extends React.Component {
+class DirectorView extends React.Component {
   render() {
     const { director, onBackClick } = this.props;
 
@@ -21,3 +21,11 @@ export class DirectorView extends React.Component {
     );
   }
 }
+
+DirectorView.propTypes = {
+  director: PropTypes.shape({
+    Name: PropTypes.string.isRequired,
+    Bio: PropTypes.string.isRequired,
+  }).isRequired,
+};
+export default DirectorView;
