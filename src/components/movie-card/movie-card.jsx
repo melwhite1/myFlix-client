@@ -4,9 +4,9 @@ import { Button, Card, CardGroup, Container, Col, Row } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
 
-export class MovieCard extends React.Component {
+class MovieCard extends React.Component {
   render() {
-    const { movie, onMovieClick } = this.props;
+    const { movie } = this.props;
 
     return (
       <Card>
@@ -39,3 +39,5 @@ MovieCard.propTypes = {
     }).isRequired,
     onMovieClick: PropTypes.func.isRequired
 };
+
+export default MovieCard;
