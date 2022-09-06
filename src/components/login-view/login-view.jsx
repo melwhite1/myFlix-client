@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Form, Button, Card, CardGroup, Container, Col, Row, Navbar, Nav } from 'react-bootstrap';
-import { setUser } from '../../actions/actions';
+import { Form, Button, Card, CardGroup, Container, Col, Row, } from 'react-bootstrap';
+import { setUser, validateInput } from '../../actions/actions';
 import { connect } from 'react-redux';
 
 import { Link } from "react-router-dom";
 
 import './login-view.scss';
 
-function LoginView(props) {
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+function LoginView({ user, setUser, validateInput, onLoggedIn }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [ usernameErr, setUsernameErr ] = useState('');
@@ -45,7 +51,7 @@ function LoginView(props) {
       })
       .then((response) => {
         const data = response.data;
-        props.onLoggedIn(data);
+        onLoggedIn(data);
       })
       .catch((e) => {
         console.log('no such user');
@@ -55,17 +61,6 @@ function LoginView(props) {
 
   return (
     <Container fluid className="loginContainer my-3 mx-12 ">
-      <Navbar bg="light" expand="lg">
-        <Container fluid>
-          <Navbar.Brand href="#home">Home</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#Register">Register</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
       <Row>
         <Col>
           <CardGroup>
@@ -113,12 +108,6 @@ function LoginView(props) {
   );
 }
 
-let mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
-};
-
 LoginView.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
@@ -127,4 +116,4 @@ LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, { setUser })(LoginView);
+export default connect(mapStateToProps, { setUser, validateInput })(LoginView);

@@ -4,15 +4,12 @@ import { Link } from 'react-router-dom';
 
 import "./navbar.scss";
 
-function NavBar() {
-  let user = localStorage.getItem('user');
-
-  const handleLogOut = (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    window.open("/", "_self");
-    props.onLoggedOut(user);
-  };
+function NavBar({ logout }) {
+  const user = localStorage.getItem('user');
+  const onLoggedOut = () => {
+          localStorage.clear();
+          window.open("/", "_self");
+      };
 
   const isAuth = () => {
     if (typeof window == "undefined") {
@@ -27,13 +24,12 @@ function NavBar() {
 
   return (
     <Navbar collapseOnSelect expand="xxl" variant="dark">
-      <Container>
         <Navbar.Brand className="navbar-logo" href="/">
           myFlix
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+          <Nav>
             {isAuth() && (
               <Nav.Link as={Link} to={`/users/${user}`}>
                 {user}
@@ -44,11 +40,8 @@ function NavBar() {
                 Logout
               </Button>
             )}
-            {!isAuth() && <Nav.Link href="/">Sign in</Nav.Link>}
-            {!isAuth() && <Nav.Link href="/register">Sign up</Nav.Link>}
           </Nav>
         </Navbar.Collapse>
-      </Container>
     </Navbar>
   );
 }
