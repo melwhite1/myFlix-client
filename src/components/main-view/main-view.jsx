@@ -116,7 +116,7 @@ render() {
       <Route
         path={`/users/${user}`}
         render={({ history }) => {
-          if (!localUseruser) return <Redirect to="/" />;
+          if (!localUser) return <Redirect to="/" />;
           return (
             <Col>
               <ProfileView
@@ -189,7 +189,7 @@ render() {
       />
 
       <Route
-        path="/genres/:name"
+        path="/genre/:name"
         render={({ match, history }) => {
           if (!user)
             return (
