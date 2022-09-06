@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './profile-view.scss'
 import { Form, Button, Container, Col, Row, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import { MovieCard } from '../movie-card/movie-card';
 
 
 export function ProfileView({ movies }) {
