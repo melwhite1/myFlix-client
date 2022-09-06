@@ -8,7 +8,7 @@ import { setMovies, setUser } from '../../actions/actions';
 
 import { Container, Col, Row, Navbar, Nav } from 'react-bootstrap';
 
-import Navbar  from '../navbar/navbar';
+import NavBar  from '../navbar/navbar';
 import LoginView  from '../login-view/login-view';
 import RegistrationView from '../registration-view/registration-view';
 import MovieCard from '../movie-card/movie-card';
